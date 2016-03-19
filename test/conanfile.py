@@ -15,7 +15,8 @@ class DefaultNameConan(ConanFile):
     name = "DefaultName"
     version = "0.1"
     settings = "os", "compiler", "arch", "build_type"
-    requires = "llvm/3.8.0@%s/%s" % (username, channel)
+    requires = ("llvm/3.8.0@%s/%s" % (username, channel),
+                "clang/3.8.0@%s/%s" % (username, channel))
     generators = "cmake"
 
     def build(self):
