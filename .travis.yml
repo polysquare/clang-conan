@@ -1,0 +1,44 @@
+os: linux
+services:
+- docker
+sudo: required
+language: python
+env:
+  global:
+  - CONAN_UPLOAD=1
+  - CONAN_REFERENCE="clang/3.8.0"
+  - CONAN_USERNAME="smspillaz"
+  - CONAN_CHANNEL="ci"
+  - CONAN_TOTAL_PAGES=2
+  - secure: mnNaRPNnAAn8IBuNiYUDE8+HWZcAcK27BL/rhxm33ej/1K71kLrk8MYde1aQiSWf2SA4xmFiYvWk8jxg/Uh827pZxOgtlzu4pRB8ReE5GO1+I6mzIEZewZo2YJhK39oaWxhXPRGIEpuKOJ9Vt6VoKwvlV9Oih+GHWgxA+YxD8wVkzT4buMJuauYKiir4YMU6s7p5vXL//xDOl3TLOcHQTBpWZGpBhuUPnG/5Mfuej+F52oT/p/vnn59ISC2kxR8cQ3yufiQm5e3ee/2eXJlCyHfZEVu/aR2rOt5EY26lUEZUOK/U3Ryrv6e7nDLOb/ivfUe7saiqvSFMCdhsT+QLzABRzEVFwLdynaeYnnfI4ysWQapvc2vVwIx8wIxGsuPRNQvxkGoxp/KD05xHtZ6MENTyJWcVxzgv+p8YqfC2fcY9h66ENIBXv9fnTYkgg2uOrkSlJYyWmACInT0CHFg2P+X9wwu+p/AXSV3lfzKrafDNkhk0+lx5XY/JlnG0+pglPI03puHCn1PZ2c1FW66lcIY/k26Gy6aGEzqDxqQggqfFAh8MG251Vr71odTZeQwaM1fKNjNMnTvO7MzjdhmETognbos6ExKxSTn2qzws0/CZDy5LNxmAc3uHjhC9Qrdp/dofbO52ydvCBf/gNpeajYYz+2rUNMosHLkbYXNgqcQ=
+  matrix:
+  - CONAN_GCC_VERSIONS=4.8 CONAN_CURRENT_PAGE=1 CONAN_USE_DOCKER=1
+  - CONAN_GCC_VERSIONS=4.8 CONAN_CURRENT_PAGE=2 CONAN_USE_DOCKER=1
+  - CONAN_GCC_VERSIONS=4.9 CONAN_CURRENT_PAGE=1 CONAN_USE_DOCKER=1
+  - CONAN_GCC_VERSIONS=4.9 CONAN_CURRENT_PAGE=2 CONAN_USE_DOCKER=1
+  - CONAN_GCC_VERSIONS=5.2 CONAN_CURRENT_PAGE=1 CONAN_USE_DOCKER=1
+  - CONAN_GCC_VERSIONS=5.2 CONAN_CURRENT_PAGE=2 CONAN_USE_DOCKER=1
+  - CONAN_GCC_VERSIONS=5.3 CONAN_CURRENT_PAGE=1 CONAN_USE_DOCKER=1
+  - CONAN_GCC_VERSIONS=5.3 CONAN_CURRENT_PAGE=2 CONAN_USE_DOCKER=1
+matrix:
+  include:
+  - os: osx
+    osx_image: xcode7.1
+    language: generic
+    env: CONAN_CURRENT_PAGE=1
+  - os: osx
+    osx_image: xcode7.1
+    language: generic
+    env: CONAN_CURRENT_PAGE=2
+  - os: osx
+    osx_image: xcode6.4
+    language: generic
+    env: CONAN_CURRENT_PAGE=1
+  - os: osx
+    osx_image: xcode6.4
+    language: generic
+    env: CONAN_CURRENT_PAGE=2
+install:
+- "./.travis/install.sh"
+script:
+- "./.travis/run.sh"
