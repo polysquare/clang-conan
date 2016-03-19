@@ -99,7 +99,7 @@ class ClangConan(ConanFile):
                                           "conan_basic_setup()\n"
                                           "set (CMAKE_PREFIX_PATH \"${CONAN_LLVM_ROOT}\")\n"
                                           "set (CMAKE_PROGRAM_PATH \"${CONAN_BIN_DIRS_LLVM}\")\n"
-                                          "if (APPLE OR UNIX)"
+                                          "if (APPLE OR UNIX)\n"
                                           "  set (CMAKE_EXE_LINKER_FLAGS \"${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,${CONAN_LIB_DIRS}\")\n"
                                           "  set (CMAKE_SHARED_LINKER_FLAGS \"${CMAKE_SHARED_LINKER_FLAGS} -Wl,-rpath,${CONAN_LIB_DIRS}\")\n"
                                           "endif ()\n"
