@@ -4,7 +4,7 @@ import os
 
 ############### CONFIGURE THESE VALUES ##################
 default_user = "smspillaz"
-default_channel = "ci"
+default_channel = "stable"
 #########################################################
 
 channel = os.getenv("CONAN_CHANNEL", default_channel)

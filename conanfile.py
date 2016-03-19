@@ -48,7 +48,7 @@ class ClangConan(ConanFile):
     name = "clang"
     version = os.environ.get("CONAN_VERSION_OVERRIDE", VERSION)
     generators = "cmake"
-    requires = ("llvm/3.8.0@smspillaz/ci", )
+    requires = ("llvm/3.8.0@smspillaz/stable", )
     url = "http://github.com/smspillaz/clang-conan"
     license = "BSD"
     settings = "os", "compiler", "build_type", "arch"
