@@ -8,7 +8,7 @@ environment:
     CONAN_UPLOAD: 1
     CONAN_REFERENCE: "clang/3.8.0"
     CONAN_USERNAME: "smspillaz"
-    CONAN_CHANNEL: "ci"
+    CONAN_CHANNEL: "stable"
     CONAN_TOTAL_PAGES: 4
     CONAN_PASSWORD:
       secure: 5nLxRf+tMibvD7MIK0PDWQ==
