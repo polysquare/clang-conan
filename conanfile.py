@@ -103,7 +103,7 @@ class ClangConan(ConanFile):
                                           "  set (CMAKE_EXE_LINKER_FLAGS \"${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,${CONAN_LIB_DIRS}\")\n"
                                           "  set (CMAKE_SHARED_LINKER_FLAGS \"${CMAKE_SHARED_LINKER_FLAGS} -Wl,-rpath,${CONAN_LIB_DIRS}\")\n"
                                           "endif ()\n"
-                                          "message (STATUS \"${CMAKE_PROGRAM_PATH}")\n"
+                                          "message (STATUS \"${CMAKE_PROGRAM_PATH}\")\n"
                                           "include(CMakeListsOriginal)\n")
 
             try:
