@@ -48,7 +48,9 @@ class ClangConan(ConanFile):
     name = "clang"
     version = os.environ.get("CONAN_VERSION_OVERRIDE", VERSION)
     generators = "cmake"
-    requires = ("llvm/3.8.0@smspillaz/stable", )
+    requires = ("llvm/3.8.0@smspillaz/stable",
+                "libcxx/3.8.0@smspillaz/stable",
+                "compiler-rt/3.8.0@smspillaz/stable")
     url = "http://github.com/smspillaz/clang-conan"
     license = "BSD"
     settings = "os", "compiler", "build_type", "arch"
@@ -64,17 +66,13 @@ class ClangConan(ConanFile):
     def source(self):
         download_extract_llvm_component("cfe", ClangConan.version,
                                         "clang")
-        download_extract_llvm_component("compiler-rt", ClangConan.version,
-                                        "compiler-rt")
-        download_extract_llvm_component("libcxx", ClangConan.version,
-                                        "libcxx")
         download_extract_llvm_component("clang-tools-extra", ClangConan.version,
                                         "clang/tools/extra")
 
     def build(self):
         cmake = CMake(self.settings)
 
-        for component in ["clang", "compiler-rt", "libcxx"]:
+        for component in ["clang"]:
             build = os.path.join(BUILD_DIR, component)
             install = os.path.join(INSTALL_DIR, component)
             try:
@@ -111,6 +109,14 @@ class ClangConan(ConanFile):
             except OSError:
                 pass
 
+            try:
+                os.makedirs("exports")
+            except OSError:
+                pass
+
+            shutil.copytree("lib", "exports/lib")
+            shutil.copytree("include", "exports/include")
+
             with in_dir(build):
                 self.run("cmake \"%s\" %s"
                          " -DCLANG_INCLUDE_DOCS=OFF"
@@ -142,7 +148,7 @@ class ClangConan(ConanFile):
                 self.run("cmake --build . -- install")
 
     def package(self):
-        for component in ["clang", "compiler-rt", "libcxx"]:
+        for component in ["clang"]:
             install = os.path.join(INSTALL_DIR, component)
             self.copy(pattern="*",
                       dst="include",
@@ -165,7 +171,17 @@ class ClangConan(ConanFile):
                       dst="libexec",
                       src=os.path.join(install, "libexec"),
                       keep_path=True)
+        self.copy(pattern="*",
+                  dst="lib",
+                  src="exports/lib",
+                  keep_path=True)
+        self.copy(pattern="*",
+                  dst="include",
+                  src="exports/include",
+                  keep_path=True)
 
     def imports(self):
         self.copy("*.dll", dst="bin", src="bin")
         self.copy("*.dylib*", dst="bin", src="lib")
+        self.copy("*", dst="include/c++/v1", src="include/c++/v1")
+        self.copy("*libclang_rt.*", dst="lib", src="lib")
