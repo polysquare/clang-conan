@@ -11,7 +11,7 @@ if __name__ == "__main__":
         for ver in ["4.8", "4.9", "5.2", "5.3"]:
             for arch in ["x86", "x86_64"]:
                 builder.add({"arch": arch,
-                             "build_type": "MinSizeRel",
+                             "build_type": "Release",
                              "compiler": "gcc",
                              "compiler.version": ver},
                              {})
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     if platform.system() == "Darwin":
         for compiler_version in ["5.0", "5.1", "6.0", "6.1", "7.0"]:
             for arch in ["x86", "x86_64"]:
-                for build_type in ["MinSizeRel"]:
+                for build_type in ["Release"]:
                     builder.add({"arch": arch,
                                  "build_type": build_type,
                                  "compiler": "apple-clang",

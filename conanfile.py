@@ -190,7 +190,7 @@ class ClangConan(ConanFile):
                   keep_path=True)
 
     def conan_info(self):
-        self.info.settings.build_type = "MinSizeRel"
+        self.info.settings.build_type = "Release"
 
     def imports(self):
         self.copy("*.dll", dst="bin", src="bin")
