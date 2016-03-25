@@ -134,6 +134,15 @@ class ClangConan(ConanFile):
                          " -DLLVM_TARGETS_TO_BUILD=X86"
                          " -DCMAKE_INSTALL_PREFIX=\"%s\""
                          " -DBUILD_SHARED_LIBS=%s"
+                         " -DCLANG_ENABLE_ARCMT=OFF"
+                         " -DCLANG_TOOL_ARCMT_TEST_BUILD=OFF"
+                         " -DCLANG_TOOL_CLANG_CHECK_BUILD=OFF"
+                         " -DCLANG_TOOL_CLANG_FORMAT_BUILD=OFF"
+                         " -DCLANG_TOOL_CLANG_FUZZER_BUILD=OFF"
+                         " -DCLANG_TOOL_DIAGTOOL_BUILD=OFF"
+                         " -DCLANG_TOOL_DRIVER_BUILD=OFF"
+                         " -DCLANG_TOOL_DIAGTOOL_BUILD=OFF"
+                         " -DCLANG_TOOL_CLANG_FUZZER_BUILD=OFF"
                          "" % (os.path.join(self.conanfile_directory,
                                             component),
                                cmake.command_line,
@@ -179,6 +188,9 @@ class ClangConan(ConanFile):
                   dst="include",
                   src="exports/include",
                   keep_path=True)
+
+    def conan_info(self):
+        self.info.settings.build_type = "MinSizeRel"
 
     def imports(self):
         self.copy("*.dll", dst="bin", src="bin")
