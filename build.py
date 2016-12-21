@@ -10,11 +10,13 @@ if __name__ == "__main__":
     if platform.system() == "Linux":
         for ver in ["4.8", "4.9", "5.2", "5.3"]:
             for arch in ["x86", "x86_64"]:
-                builder.add({"arch": arch,
-                             "build_type": "Release",
-                             "compiler": "gcc",
-                             "compiler.version": ver},
-                             {})
+                for libcxx in ["libstdc++", "libstdc++11"]:
+                    builder.add({"arch": arch,
+                                 "build_type": "Release",
+                                 "compiler": "gcc",
+                                 "compiler.version": ver,
+                                 "compiler.libcxx": libcxx},
+                                 {})
 
     if platform.system() == "Darwin":
         for compiler_version in ["5.0", "5.1", "6.0", "6.1", "7.0"]:
